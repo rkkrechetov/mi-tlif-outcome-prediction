@@ -77,10 +77,6 @@ Install:
 pip install -r requirements.txt
 ```
 
-## Data
-
-Patient data is not publicly available due to privacy restrictions (ОАО «РЖД» institutional dataset). To reproduce the analysis, replace `../Models/data/features.parquet` and `../Models/data/y.csv` with your own data matching the feature schema described in the paper.
-
 ## Citation
 
 > [Citation will be added upon publication]
