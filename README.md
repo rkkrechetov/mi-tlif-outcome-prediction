@@ -45,6 +45,20 @@ MCID thresholds: ODI = 10 pts, SF-36 PCS/MCS = 5 pts.
 
 Gradient boosting models outperformed linear regressors across all three targets. Feature importance (SHAP) consistently ranked ADC and ADC/Pfirrmann ratio as the top predictors.
 
+## Model artifacts
+
+Final models trained on the full cohort (n = 457) are available in `res/`:
+
+| File | Description |
+|---|---|
+| `res/final_models.pkl` | Fitted models (Ridge, Lasso, ElasticNet, XGBoost, LightGBM, CatBoost) for ODI, SF-36 PCS, SF-36 MCS |
+| `res/final_params.pkl` | Optimal hyperparameters per model |
+| `res/final_preprocessor.pkl` | Preprocessing pipeline (StandardScaler + OneHotEncoder), fit on full sample |
+
+Load with `joblib.load()` to generate predictions on new preoperative data.
+
+Repository: [github.com/rkkrechetov/spine-fusion-outcome-classic-ml](https://github.com/rkkrechetov/spine-fusion-outcome-classic-ml)
+
 ## Notebooks
 
 | Notebook | Description |
