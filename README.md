@@ -6,7 +6,7 @@ Regression models for predicting 3-year functional outcomes after minimally inva
 
 **Task:** regression (3 independent targets)
 **Targets:** ODI (Oswestry Disability Index), SF-36 PCS (Physical Component Summary), SF-36 MCS (Mental Component Summary)
-**Sample:** n = 457 patients, prospective 3-year follow-up
+**Sample:** n = 500 patients, prospective 3-year follow-up
 **Features:** 27 preoperative variables (19 clinical/radiological/MRI + 8 engineered features)
 
 ## Models
@@ -23,7 +23,7 @@ Regression models for predicting 3-year functional outcomes after minimally inva
 ## Validation
 
 Nested cross-validation:
-- **Outer loop:** LOOCV (457 iterations) — unbiased out-of-sample predictions
+- **Outer loop:** LOOCV (500 iterations) — unbiased out-of-sample predictions
 - **Inner loop:** Optuna TPE + 5-fold CV — hyperparameter search per fold
 - **Preprocessing:** StandardScaler + OneHotEncoder fit on training fold only (no leakage)
 
@@ -39,25 +39,25 @@ MCID thresholds: ODI = 10 pts, SF-36 PCS/MCS = 5 pts.
 
 | Target | Best model | MAE | RMSE | R² | % MCID |
 |---|---|---|---|---|---|
-| ODI | XGBoost | 4.48 | 6.00 | 0.509 | 90.4% |
-| SF-36 PCS | CatBoost | 5.34 | 6.87 | 0.557 | 55.4% |
-| SF-36 MCS | XGBoost | 5.98 | 7.95 | 0.405 | 52.5% |
+| ODI | CatBoost | 3.98 | 5.32 | 0.663 | 93.6% |
+| SF-36 PCS | XGBoost | 4.72 | 6.36 | 0.664 | 63.0% |
+| SF-36 MCS | XGBoost | 5.26 | 7.41 | 0.522 | 61.8% |
 
-Gradient boosting models outperformed linear regressors across all three targets. Feature importance (SHAP) consistently ranked ADC and ADC/Pfirrmann ratio as the top predictors.
+Gradient boosting models outperformed linear regressors across all three targets. SHAP ranked disc ADC first for every outcome. The second-ranked feature was facet angle for ODI and the ADC/Pfirrmann ratio for both SF-36 scores.
 
 ## Model artifacts
 
-Final models trained on the full cohort (n = 457) are available in `res/`:
+Final models trained on the full cohort (n = 500) are available in `results/`:
 
 | File | Description |
 |---|---|
-| `res/final_models.pkl` | Fitted models (Ridge, Lasso, ElasticNet, XGBoost, LightGBM, CatBoost) for ODI, SF-36 PCS, SF-36 MCS |
-| `res/final_params.pkl` | Optimal hyperparameters per model |
-| `res/final_preprocessor.pkl` | Preprocessing pipeline (StandardScaler + OneHotEncoder), fit on full sample |
+| `results/final_models.pkl` | Fitted models (Ridge, Lasso, ElasticNet, XGBoost, LightGBM, CatBoost) for ODI, SF-36 PCS, SF-36 MCS |
+| `results/final_params.pkl` | Optimal hyperparameters per model |
+| `results/final_preprocessor.pkl` | Preprocessing pipeline (StandardScaler + OneHotEncoder), fit on full sample |
 
 Load with `joblib.load()` to generate predictions on new preoperative data.
 
-Repository: [github.com/rkkrechetov/spine-fusion-outcome-classic-ml](https://github.com/rkkrechetov/spine-fusion-outcome-classic-ml)
+Repository: [github.com/rkkrechetov/mi-tlif-outcome-prediction](https://github.com/rkkrechetov/mi-tlif-outcome-prediction)
 
 ## Notebooks
 

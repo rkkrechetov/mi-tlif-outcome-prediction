@@ -7,6 +7,7 @@ catboost
 optuna
 shap
 matplotlib
+seaborn
 scipy
 joblib
 tqdm
